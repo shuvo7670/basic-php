@@ -230,7 +230,7 @@ document.querySelector('input[id="spectrum_total_price_id"]').value = `${base_pr
 
 
 // product quantity input field onkeyup
-document.querySelector('input[name="quantity"]').addEventListener('keyup', function() {
+document.querySelector('input[name="quantity"]').addEventListener('change', function() {
 
 	let base_qty = 72
 	let total_qty = Math.floor(document.querySelector('input[name="quantity"]').value);
@@ -248,13 +248,13 @@ document.querySelector('input[name="quantity"]').addEventListener('keyup', funct
 		}
 
 		total_sq_ft =	base_qty * box ;
-		base_price = parseFloat(document.querySelector('.woocommerce-Price-amount').textContent);
-		final_price = base_price * total_sq_ft;
-
+		base_price = document.querySelector('.woocommerce-Price-amount').textContent; // update selector for price ditection
+		base_price = parseFloat(base_price.replace(/[^0-9.-]+/g, ''));
 		
-		document.querySelector('input[id="spectrum_tiles_total_box"]').value = `${box.toFixed(2)}`;
-		document.querySelector('input[id="spectrum_total_sq_ft"]').value = `${total_sq_ft.toFixed(2)}`;
-		document.querySelector('input[id="spectrum_total_price_id"]').value = `${final_price.toFixed(2)}`;
+		final_price = base_price * total_sq_ft;
+		// document.querySelector('input[id="spectrum_tiles_total_box"]').value = `${box.toFixed(2)}`;
+		// document.querySelector('input[id="spectrum_total_sq_ft"]').value = `${total_sq_ft.toFixed(2)}`;
+		document.querySelector('#spectrum_total_price_id').innerText = `${final_price.toFixed(2)}`;
 	}
 
 });
